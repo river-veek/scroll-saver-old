@@ -53,7 +53,7 @@ function addScrollLocation() {
 	// TODO: fix for loop
 	// iterate through global bank to see if SB location already exists
 	for (let i = 0; i < scroll_marker_bank.length; i++) {
-		if ((scroll_marker_bank[i].x == cur_location.x) && (scroll_marker_bank[i].y == cur_location.y)) {
+		if ( (scroll_marker_bank[i].x == cur_location.x) && (scroll_marker_bank[i].y == cur_location.y) ) {
 			success = false;
 		}
 	}
@@ -67,10 +67,31 @@ function addScrollLocation() {
 }
 
 /*
+ * Returns true upon successful deletion and
+ * false otherwise.
+ *
+ * Removes the saved SB location at position index from
+ * the scroll_marker_bank (if it exists).
+*/
+function removeScrollLocation(index) {
+	let success = true;
+
+	if ( (index < 0) || (index > scroll_marker_bank.length) || (scroll_marker_bank.length == 0) ) {
+		success = false;
+	}
+
+	if (success != false) {
+		scroll_marker_bank.splice(index, 1);  // removes 1 item at location index
+	}
+
+	return success;
+}
+
+/*
  * Takes an {x, y} coordinate, returns null.
  *
  * Creates a visual marker showing a saved SB location. Color of marker
- * will be chosen at random. Size will be default to 5 * 10.
+ * will be chosen at random. Size will be default to 5 * 10 pixels.
  */
 function createScrollMarker (coordinate) {
 	let canvas = document.getElementById("canvas");
