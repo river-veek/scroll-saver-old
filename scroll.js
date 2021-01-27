@@ -48,7 +48,7 @@ function getScrollLocation() {
 function addScrollLocation() {
 	let success = true;
 
-	cur_location = getScrollLocation();  // grab current SB location
+	let cur_location = getScrollLocation();  // grab current SB location
 
 	// TODO: fix for loop
 	// iterate through global bank to see if SB location already exists
@@ -88,6 +88,8 @@ function removeScrollLocation(index) {
 }
 
 /*
+ * TODO: FUNCTION NOT COMPLETE, decide how I want to make shapes
+ *
  * Takes an {x, y} coordinate, returns null.
  *
  * Creates a visual marker showing a saved SB location. Color of marker
