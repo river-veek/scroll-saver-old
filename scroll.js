@@ -3,7 +3,7 @@
  * Created by River Veek, riverv@uoregon.edu
  *
  * Save locations of the scroll bar on a website or file.
- * This module holds the main logic for the web extension.
+ * This file holds the main logic for the web extension.
  */
 
 // GLOBALS
@@ -67,6 +67,9 @@ function addScrollLocation() {
 }
 
 /*
+ * Takes an integer, index, that corresponds to a location
+ * to be deleted.
+ *
  * Returns true upon successful deletion and
  * false otherwise.
  *
@@ -88,12 +91,15 @@ function removeScrollLocation(index) {
 }
 
 /*
- * TODO: FUNCTION NOT COMPLETE, decide how I want to make shapes
+ * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ * TODO: FUNCTION ON HOLD UNTIL I
+ * FIGURE OUT HOW TO CREATE CANVAS ELEMENT
  *
  * Takes an {x, y} coordinate, returns null.
  *
  * Creates a visual marker showing a saved SB location. Color of marker
  * will be chosen at random. Size will be default to 5 * 10 pixels.
+ * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  */
 function createScrollMarker (coordinate) {
 	let canvas = document.getElementById("canvas");
@@ -101,7 +107,7 @@ function createScrollMarker (coordinate) {
 	let colors = ["#FFFFFF", "#FF0000", "#00FF00", "#0000FF", "#EBC554"];
 
 	// each SB marker will be random color from above array
-	let num_colors = colors.length
+	let num_colors = colors.length;
 	let random_color = Math.floor(Math.random() * Math.floor(num_colors));
 
 	// TODO: create marker on right-hand-side of screen (near scroll bar)
@@ -109,4 +115,15 @@ function createScrollMarker (coordinate) {
 	// context.fillStyle(colors[random_color]);
 	// context.fillRect(coordinate.x, coordinatey.y, MARKER_LENGTH, MARKER_HEIGHT);
 	console.log("random_color=", colors[random_color])
+}
+
+/*
+ * Returns null.
+ *
+ * Creates a canvas element and appends it to body of web page.
+ */
+function createOverlay() {
+	let canvas = document.createElement("canvas");  // create the canvas element
+	document.body.appendChild(canvas);  // append element to body of web page
+	canvas.style.position = "fixed";  // position relative to browser window
 }
