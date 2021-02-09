@@ -112,18 +112,34 @@ function createScrollMarker (coordinate) {
 
 	// TODO: create marker on right-hand-side of screen (near scroll bar)
 	// 		-
-	// context.fillStyle(colors[random_color]);
-	// context.fillRect(coordinate.x, coordinatey.y, MARKER_LENGTH, MARKER_HEIGHT);
-	console.log("random_color=", colors[random_color])
+	context.fillStyle = colors[random_color];
+	context.fillRect(coordinate.x, coordinatey.y, MARKER_LENGTH, MARKER_HEIGHT);
+	console.log("random_color=", colors[random_color]);
 }
 
 /*
+ * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ * TODO: FUNCTION ON HOLD 
  * Returns null.
  *
  * Creates a canvas element and appends it to body of web page.
+ * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  */
 function createOverlay() {
 	let canvas = document.createElement("canvas");  // create the canvas element
 	document.body.appendChild(canvas);  // append element to body of web page
-	canvas.style.position = "fixed";  // position relative to browser window
+	// FIXME: DO I WANT CANVAS ELEMENT FOR EACH SCROLL MARKER? OR JUST ONE?
+	canvas.style.position = "sticky";  // object stays in place despite scrolling
+	// document.getElementById('canvas').className = 'canvas';  // add canvas object to 'canvas' class
 }
+
+// test: click to make rectangle appear at (50, 50)
+window.onclick = function() {
+createScrollMarker({x: window.scrollX, y: window.scrollY});
+}
+
+// test: canvas is created upon window load
+window.onload = function() {
+	createOverlay();
+	// createScrollMarker({x: 50, y: 50});
+};

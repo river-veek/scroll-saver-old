@@ -7,6 +7,8 @@ A Google Chrome extension that allows a user to save the locations of the scroll
 - View all saved SB locations at once.
 - Simply click on a saved SB marker to return to that spot on a webpage/file.
 
+**Note**: This extension currently only works for the Google Chrome browser.
+
 ## Contact Info
 River Veek
 riverv@uoregon.edu
