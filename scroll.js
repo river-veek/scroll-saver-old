@@ -119,7 +119,7 @@ function createScrollMarker (coordinate) {
 
 /*
  * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- * TODO: FUNCTION ON HOLD 
+ * TODO: FUNCTION ON HOLD
  * Returns null.
  *
  * Creates a canvas element and appends it to body of web page.
@@ -135,7 +135,7 @@ function createOverlay() {
 
 // test: click to make rectangle appear at (50, 50)
 window.onclick = function() {
-createScrollMarker({x: window.scrollX, y: window.scrollY});
+	createScrollMarker({x: window.scrollX, y: window.scrollY});
 }
 
 // test: canvas is created upon window load
