@@ -1,0 +1,9 @@
+# Text documents for my use only
+plan.txt
+
+# json files for use by Google Chrome API
+manifest.json
+
+# temporary test files
+tmp.css
+tmp.js

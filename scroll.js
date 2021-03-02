@@ -1,145 +1,191 @@
-/*
- * Version 0.1.0
- * Created by River Veek, riverv@uoregon.edu
- *
- * Save locations of the scroll bar on a website or file.
- * This file holds the main logic for the web extension.
- */
-
-// GLOBALS
 var scroll_marker_bank = [];
-var MARKER_LENGTH = 10;
-var MARKER_HEIGHT = 5;
-//
+var index = 0;
 
+function createScrollMarker(coordinate) {
+  // function on hold until further notice
+  let canvas = document.getElementById("canvas");
+  let context = canvas.getContext("2d");
+  let colors = ["#FFFF00", "#FF0000", "#00FF00", "#0000FF", "#EBC554"];
 
-/*
- * Returns the location of the scroll bars
- * as a two-item object {x, y}.
- *
- * y cooresponds to the verticle SB, while
- * x corresponds to the horizontal SB (if
- * applicable). The starting state of the window
- * is (0, 0). x and y represent the number of pixels
- * that the SB is offset by.
- *
- * > getScrollLocation();
- * -> {x: 0, y: 1738}
- */
+  // each SB marker will be random color from above array
+  let num_colors = colors.length;
+  let random_color = Math.floor(Math.random() * Math.floor(num_colors));
+
+  // TODO: create marker on right-hand-side of screen (near scroll bar)
+  // 		-
+  context.fillStyle = colors[random_color];
+  context.fillRect(coordinate.x, coordinate.y, 10, 10);
+  console.log("random_color=", colors[random_color]);
+}
+
 function getScrollLocation() {
-	let x = window.scrollX;  // location of horizontal SB
-	let y = window.scrollY;  // location of vertical SB
-
-	return {
-		x,
-		y
-	};
+  // x and y values will be relative to top of viewable window space
+  let x = window.scrollX; // location of horizontal SB
+  let y = window.scrollY; // location of vertical SB
+  let idx = index; // index of marker in array
+  return {
+    x,
+    y,
+    idx
+  };
 }
 
-/*
- * Returns true upon successful add and
- * false otherwise.
- *
- * Adds the current SB location to the global
- * bank of SB markers. Multiple calls will not
- * result in multiple of the same SB location
- * to be added.
- */
 function addScrollLocation() {
-	let success = true;
+  let success = true;
 
-	let cur_location = getScrollLocation();  // grab current SB location
+  let cur_location = getScrollLocation(); // grab current SB location
 
-	// TODO: fix for loop
-	// iterate through global bank to see if SB location already exists
-	for (let i = 0; i < scroll_marker_bank.length; i++) {
-		if ( (scroll_marker_bank[i].x == cur_location.x) && (scroll_marker_bank[i].y == cur_location.y) ) {
-			success = false;
-		}
-	}
+  // TODO: fix for loop
+  // iterate through global bank to see if SB location already exists
+  for (let i = 0; i < scroll_marker_bank.length; i++) {
+    if ((scroll_marker_bank[i].x == cur_location.x) && (scroll_marker_bank[i].y == cur_location.y)) {
+      success = false;
+    }
+  }
 
-	// only add SB location to bank if it doesn't exist
-	if (success) {
-		scroll_marker_bank.push(cur_location);  // add to global bank
-	}
+  // only add SB location to bank if it doesn't exist
+  if (success) {
+    scroll_marker_bank.push(cur_location); // add to global bank
+  }
 
-	return success;
+  return cur_location;
+
+}
+
+function addDiv() {
+  let div = document.createElement("div"); // create div
+  document.body.appendChild(div); // append div to body
+  div.className = "div1"; // change class name
+  document.body.insertBefore(div, document.body.firstChild); // append to beginning of body
+}
+
+function addButton() {
+  let button = document.createElement("button");
+  //tton.setAttribute("content", "Test");
+  button.textContent = "Save Location";
+  let div = document.body.getElementsByClassName("div1")[0];
+  div.appendChild(button);
+}
+
+function addSelect() {
+  let select = document.createElement("select");
+  select.id = "select";
+  //select.disabled = true;  // makes the first descriptor opiton unclickable
+  let div = document.body.getElementsByClassName("div1")[0];
+  div.appendChild(select);
+  let option0 = document.createElement("option");
+  option0.text = "Select";
+  option0.disabled = true;
+  option0.selected = true;
+  select.add(option0);
+  //console.log(test);
+  // select.onclick = console.log("Option has been clicked");
+  // select.change = console.log("Option has been changed");
+}
+
+function addOption(txt, loc) {
+  // add item to select
+  // console.log("IN addOption()");
+  // console.log("loc =", txt);
+  let div = document.body.getElementsByClassName("div1")[0];
+  let select = div.getElementsByTagName("select")[0];
+  let newOption = document.createElement("option");
+  newOption.text = txt;
+  newOption.value = loc.index;
+  //newOption.onchange = alert("option clicked!");
+  //console.log("LOC", loc);
+  select.add(newOption);
+  //console.log(div.getElementsByTagName("select")[0]);
+  //console.log(newOption.text);
+  //console.log(select);
+}
+
+function checkIfExists(obj) {
+  // logic here is kind of fishy, but it works
+  // if new location obj is created, but it is not the EXACT obj of the previous SAME location \
+  // then func will return false
+  // only returns true upon first addition of location obj to global array
+  //console.log("In checkIfExists()");
+  if (scroll_marker_bank.includes(obj)) {
+    //console.log("RETURNING TRUE");
+    return true;
+  }
+  //console.log("RETURNING FALSE");
+  return false;
+}
+
+function goToLocation(loc) {
+  //let div = document.body.getElementsByClassName("div1")[0];
+  //let select = div.getElementById(loc);
+
 }
 
 /*
- * Takes an integer, index, that corresponds to a location
- * to be deleted.
- *
- * Returns true upon successful deletion and
- * false otherwise.
- *
- * Removes the saved SB location at position index from
- * the scroll_marker_bank (if it exists).
+function addButtonTwo() {
+let button = document.createElement("buttonTwo");
+  //tton.setAttribute("content", "Test");
+  button.textContent = "V";
+  let div = document.body.getElementsByClassName("div1")[0];
+  div.appendChild(button);
+}
 */
-function removeScrollLocation(index) {
-	let success = true;
 
-	if ( (index < 0) || (index > scroll_marker_bank.length) || (scroll_marker_bank.length == 0) ) {
-		success = false;
-	}
-
-	if (success != false) {
-		scroll_marker_bank.splice(index, 1);  // removes 1 item at location index
-	}
-
-	return success;
-}
-
-/*
- * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- * TODO: FUNCTION ON HOLD UNTIL I
- * FIGURE OUT HOW TO CREATE CANVAS ELEMENT
- *
- * Takes an {x, y} coordinate, returns null.
- *
- * Creates a visual marker showing a saved SB location. Color of marker
- * will be chosen at random. Size will be default to 5 * 10 pixels.
- * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- */
-function createScrollMarker (coordinate) {
-	let canvas = document.getElementById("canvas");
-	let context = canvas.getContext("2d");
-	let colors = ["#FFFFFF", "#FF0000", "#00FF00", "#0000FF", "#EBC554"];
-
-	// each SB marker will be random color from above array
-	let num_colors = colors.length;
-	let random_color = Math.floor(Math.random() * Math.floor(num_colors));
-
-	// TODO: create marker on right-hand-side of screen (near scroll bar)
-	// 		-
-	context.fillStyle = colors[random_color];
-	context.fillRect(coordinate.x, coordinatey.y, MARKER_LENGTH, MARKER_HEIGHT);
-	console.log("random_color=", colors[random_color]);
-}
-
-/*
- * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- * TODO: FUNCTION ON HOLD
- * Returns null.
- *
- * Creates a canvas element and appends it to body of web page.
- * XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- */
-function createOverlay() {
-	let canvas = document.createElement("canvas");  // create the canvas element
-	document.body.appendChild(canvas);  // append element to body of web page
-	// FIXME: DO I WANT CANVAS ELEMENT FOR EACH SCROLL MARKER? OR JUST ONE?
-	canvas.style.position = "sticky";  // object stays in place despite scrolling
-	// document.getElementById('canvas').className = 'canvas';  // add canvas object to 'canvas' class
-}
-
-// test: click to make rectangle appear at (50, 50)
-window.onclick = function() {
-	createScrollMarker({x: window.scrollX, y: window.scrollY});
-}
-
-// test: canvas is created upon window load
+// TODO: add logic for viewing buttons
+// test
+var ct = 0;
+var flag = 1;
 window.onload = function() {
-	createOverlay();
-	// createScrollMarker({x: 50, y: 50});
+  //createOverlay();
+  addDiv();
+  addButton();
+  var div = document.getElementsByClassName("div1")[0];
+  var button = div.getElementsByTagName("button")[0];
+  //nsole.log(button);
+
+  let select = document.querySelector(".div1");
+  //select.addEventListener('change', function() {
+  //  goToLocation
+  //});
+  select.onchange = function() {
+    //console.log("hi there");
+    console.log(select.val);
+    //goToLocation(select.val);
+  };
+
+  button.onclick = function() {
+
+    let loc = addScrollLocation();
+    //console.log("LOC", loc);
+    let cur = loc.y;
+    //console.log(cur);
+    let total = document.documentElement.scrollHeight;
+    //console.log(total);
+    let percent = Math.round((cur / total) * 100);
+    let final = percent + "%";
+
+    if (flag == 1) {
+      //addButtonTwo();
+      addSelect();
+      //addOption("test");
+    }
+    flag = 0;
+    if (checkIfExists(loc)) { // only add to select if haven't added already
+      //console.log("LOC", loc);
+
+      addOption(final, loc);
+      index++;
+      console.log(loc);
+      console.log(index);
+    }
+    // console outputs
+    // console.log(window.scrollX, window.scrollY);
+    console.log(scroll_marker_bank);
+    ct += 1;
+  }
+
 };
+
+
+// add index field to location object
+// make index the id/value of an option
+// after cliking object, go to that location
