@@ -29,8 +29,3 @@
 .div1 select:hover {
   opacity: 1;
 }
-
-body {
-  border: 5px solid red;
-  height: 200%;
-}
