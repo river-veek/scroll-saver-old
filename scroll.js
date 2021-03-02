@@ -91,7 +91,8 @@ function addOption(txt, loc) {
   let select = div.getElementsByTagName("select")[0];
   let newOption = document.createElement("option");
   newOption.text = txt;
-  newOption.value = loc.index;
+  console.log("LOC.IDX=", loc.idx);
+  newOption.value = loc.idx;
   //newOption.onchange = alert("option clicked!");
   //console.log("LOC", loc);
   select.add(newOption);
@@ -117,7 +118,11 @@ function checkIfExists(obj) {
 function goToLocation(loc) {
   //let div = document.body.getElementsByClassName("div1")[0];
   //let select = div.getElementById(loc);
-
+	console.log("LOC IN GOTOLOCATION=", loc);
+  console.log("BANK=", scroll_marker_bank[0].x);
+  let loc_in_bank = scroll_marker_bank[loc];
+  //console.log("ITEM=", scroll_marker_bank[loc.value]);
+  window.scrollTo(loc_in_bank.x, loc_in_bank.y);
 }
 
 /*
@@ -143,13 +148,19 @@ window.onload = function() {
   //nsole.log(button);
 
   let select = document.querySelector(".div1");
+
   //select.addEventListener('change', function() {
   //  goToLocation
   //});
   select.onchange = function() {
     //console.log("hi there");
-    console.log(select.val);
-    //goToLocation(select.val);
+    //let sel = div.getElementsByTagName("select")[0];
+    //console.log("SEL.VALUE=", select.value);
+    //goToLocation(select.value);
+    //console.log(select);
+    let s = document.getElementById("select");
+    // console.log(s);
+    goToLocation(+s.value);
   };
 
   button.onclick = function() {
@@ -171,11 +182,10 @@ window.onload = function() {
     flag = 0;
     if (checkIfExists(loc)) { // only add to select if haven't added already
       //console.log("LOC", loc);
-
+      console.log("LOC=", loc);
       addOption(final, loc);
       index++;
-      console.log(loc);
-      console.log(index);
+      console.log("INDEX=", index);
     }
     // console outputs
     // console.log(window.scrollX, window.scrollY);
