@@ -1,0 +1,20 @@
+html {
+  border: 5px solid #FF0000;
+}
+
+body {
+  text-align: center;
+}
+
+h1 {
+  color: #FF0000;
+  font-style: italic;
+}
+
+ol li {
+  text-align: left;
+}
+
+ol {
+  padding-left: 15px;
+}

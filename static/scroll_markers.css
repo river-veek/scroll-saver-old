@@ -4,6 +4,7 @@
   top: 10%;
   width: 80px;
   height: 20px;
+  z-index: 4;
 }
 
 .div1 button {

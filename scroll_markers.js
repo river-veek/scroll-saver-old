@@ -135,6 +135,22 @@ let button = document.createElement("buttonTwo");
 }
 */
 
+/*
+chrome.scripting.executeScript({
+  file: 'background.js'
+});
+*/
+
+/*
+//backgroundScript.js
+chrome.browserAction.onClicked.addListener(
+function(tab) {
+chrome.tabs.executeScript(tab.id, {
+"file": "background.js"
+});
+});
+*/
+
 // TODO: add logic for viewing buttons
 // test
 var ct = 0;
@@ -160,7 +176,7 @@ window.onload = function() {
     //console.log(select);
     let s = document.getElementById("select");
     // console.log(s);
-    goToLocation(+s.value);
+    goToLocation(+s.value);  // unary "+" turns s.value into int
   };
 
   button.onclick = function() {
