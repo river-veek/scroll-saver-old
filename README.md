@@ -16,7 +16,7 @@ A Google Chrome extension that allows a user to save the locations of the scroll
 - Customize the color, size, name of a SB marker.
 - View all saved SB locations at once from extension popup.
 
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 **Notes**:
 - This extension will only work for the Google Chrome browser.
 - This project is currently a work in progress; functionality subject to change.

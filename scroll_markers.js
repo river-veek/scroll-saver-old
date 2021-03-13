@@ -1,33 +1,11 @@
-// ****************** GLOBALS ******************
+// *************************** GLOBALS *****************************************
 
 var scroll_marker_bank = [];  // holds all saved SB locations
 var index = 0;  // indicates location in global bank
 
-// *********************************************
+// *****************************************************************************
 
-/*
- * Function on hold.
- */
-/*
-function createScrollMarker(coordinate) {
-  // function on hold until further notice
-  let canvas = document.getElementById("canvas");
-  let context = canvas.getContext("2d");
-  let colors = ["#FFFF00", "#FF0000", "#00FF00", "#0000FF", "#EBC554"];
-
-  // each SB marker will be random color from above array
-  let num_colors = colors.length;
-  let random_color = Math.floor(Math.random() * Math.floor(num_colors));
-
-  // TODO: create marker on right-hand-side of screen (near scroll bar)
-  // 		-
-  context.fillStyle = colors[random_color];
-  context.fillRect(coordinate.x, coordinate.y, 10, 10);
-  console.log("random_color=", colors[random_color]);
-}
-*/
-
-// ****************** SB MARKER MANIPULATION ******************
+// *********************** SB MARKER MANIPULATION ******************************
 
 /*
  * Grabs current x and y location of SB.
@@ -73,6 +51,26 @@ function addScrollLocation() {
 }
 
 /*
+ * Removes a SB location from the global bank.
+ *
+ * Returns true if successful and false otherwise.
+ */
+function removeScrollLocation(idx) {
+  let success = true;
+
+  // check if out of range
+  if ((idx < 0) | (idx > scroll_marker_bank.length - 1)) {
+    success = false;
+  }
+
+  if (success) {
+    scroll_marker_bank.splice(idx, 1);  // remove 1 element from index idx
+  }
+
+  return success;
+}
+
+/*
  * Checks if SB marker already exists in global bank.
  *
  * Returns true if obj already exists in the global bank and
@@ -106,9 +104,9 @@ function goToLocation(loc) {
   window.scrollTo(loc_in_bank.x, loc_in_bank.y);
 }
 
-// ************************************************************
+// *****************************************************************************
 
-// ****************** HTML MANIPULATION FUNCTIONS ******************
+// ********************* HTML MANIPULATION FUNCTIONS ***************************
 
 /*
  * Creates div element with class name "div1" and inserts it into body.
@@ -169,21 +167,21 @@ function addOption(txt, loc) {
   select.add(newOption);
 }
 
-// *****************************************************************
+// *****************************************************************************
 
-// ****************** DRIVER CODE ******************
+// *************************** DRIVER CODE *************************************
 
-var ct = 0;  // FIXME: MAY NOT NEED THIS VAR
+// var ct = 0;  // FIXME: MAY NOT NEED THIS VAR
 var flag = 1;
 window.onload = function() {
-  addDiv();
-  addButton();
-  var div = document.getElementsByClassName("div1")[0];
-  var button = div.getElementsByTagName("button")[0];
+    addDiv();
+    addButton();
+    var div = document.getElementsByClassName("div1")[0];
+    var button = div.getElementsByTagName("button")[0];
 
-  let select = document.querySelector(".div1");
+    let select = document.querySelector(".div1");
 
-  select.onchange = function() {
+    select.onchange = function() {
 
     let s = document.getElementById("select");
     goToLocation(+s.value);  // unary "+" turns s.value into int
@@ -203,15 +201,15 @@ window.onload = function() {
 
     flag = 0;
     if (checkIfExists(loc)) {  // only add to select if haven't added already
-      console.log("LOC=", loc);
+      //console.log("LOC=", loc);
       addOption(final, loc);
       index++;
-      console.log("INDEX=", index);
+      //console.log("INDEX=", index);
     }
-    console.log(scroll_marker_bank);
-    ct += 1;
+    //console.log(scroll_marker_bank);
+    // ct += 1;
   }
 
 };
 
-// *************************************************
+// *****************************************************************************
