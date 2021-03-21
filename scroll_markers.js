@@ -171,7 +171,6 @@ function addOption(txt, loc) {
 
 // *************************** DRIVER CODE *************************************
 
-// var ct = 0;  // FIXME: MAY NOT NEED THIS VAR
 var flag = 1;
 window.onload = function() {
     addDiv();
@@ -201,13 +200,12 @@ window.onload = function() {
 
     flag = 0;
     if (checkIfExists(loc)) {  // only add to select if haven't added already
-      //console.log("LOC=", loc);
+      // console.log("LOC=", loc);
       addOption(final, loc);
       index++;
-      //console.log("INDEX=", index);
+      // console.log("INDEX=", index);
     }
-    //console.log(scroll_marker_bank);
-    // ct += 1;
+    // console.log(scroll_marker_bank);
   }
 
 };
