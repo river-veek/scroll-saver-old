@@ -1,4 +1,4 @@
-# Scroll Saver (V0.5.0)
+# Scroll Saver (V0.7.0)
 A Google Chrome extension that allows a user to save the locations of the scroll bar on a webpage or file.
 
 ## How To Use
