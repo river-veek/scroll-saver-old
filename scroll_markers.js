@@ -98,7 +98,7 @@ function goToLocation(loc) {
   //let div = document.body.getElementsByClassName("div1")[0];
   //let select = div.getElementById(loc);
 	console.log("LOC IN GOTOLOCATION=", loc);
-  console.log("BANK=", scroll_marker_bank[0].x);
+  console.log("BANK=", scroll_marker_bank[loc].x);
   let loc_in_bank = scroll_marker_bank[loc];
   //console.log("ITEM=", scroll_marker_bank[loc.value]);
   window.scrollTo(loc_in_bank.x, loc_in_bank.y);
@@ -134,12 +134,13 @@ function addButton() {
 }
 
 /*
- * Creates select element and inserts into "div1."
+ * Initializes select element and inserts into "div1."
+ * Select element initially created upon window load.
  *
  * Returns null.
  */
-function addSelect() {
-  let select = document.createElement("select");
+function addSelect(select) {
+  //let select = document.createElement("select");
   select.id = "select";
   //select.disabled = true;  // makes the first descriptor opiton unclickable
   let div = document.body.getElementsByClassName("div1")[0];
@@ -167,10 +168,78 @@ function addOption(txt, loc) {
   select.add(newOption);
 }
 
+function addInput() {
+  let name = document.createElement("input");
+  name.placeholder = "Enter Name";
+  name.maxLength = 10;  // may need to increase this later
+
+  let div = document.body.getElementsByClassName("div1")[0];
+  div.appendChild(name);
+}
+
 // *****************************************************************************
 
 // *************************** DRIVER CODE *************************************
 
+// new driver code
+var loc = null;
+window.onload = function() {
+  // add div and button
+  addDiv();
+  addButton();
+  var div = document.getElementsByClassName("div1")[0];
+  var button = div.getElementsByTagName("button")[0];
+  var pressedButton = false;
+  var select = document.createElement("select");
+
+  // TODO: still need to fix select bug (outlined in plan.txt)
+  select.onchange = function() {
+    console.log("CHANGED SELECT");
+    goToLocation(+select.value);
+  }
+
+  // TODO: fix CSS; make button clear, text black when not hovered over
+  // could try to use 'onmouseover' event
+  var clicked = false;
+  button.onclick = function() {
+    // if not pressed before, add dropdown
+    if (pressedButton == false) {
+      addSelect(select);
+      pressedButton = true;
+    }
+
+    if (clicked == false) {
+      button.textContent = "Save Name";
+      button.style.background = "#ffff00"; // yellow
+      button.style.color = "#000000";  // black
+      addInput();
+      clicked = true;
+    }
+    else {
+      // TODO: consider not allowing multiple locations with same name
+      // add percentage to name, maybe make all elements larger?
+      loc = addScrollLocation();
+      console.log(loc);
+      button.textContent = "Save Location";
+      button.style.background = "#4f9144"; // green
+      button.style.color = "ffffff";  // white
+      let input = div.getElementsByTagName("input")[0];
+      if (checkIfExists(loc)) {
+        let name = input.value;
+        if (name == "") {
+          name = "Location " + index;
+        }
+        addOption(name, loc);
+        index++;
+      }
+      input.remove();
+      clicked = false;
+    }
+  }
+}
+
+// old driver code (THIS ALL WORKS)
+/*
 var flag = 1;
 window.onload = function() {
     addDiv();
@@ -209,5 +278,6 @@ window.onload = function() {
   }
 
 };
+*/
 
 // *****************************************************************************
