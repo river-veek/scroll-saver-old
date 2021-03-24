@@ -2,13 +2,13 @@
   position: fixed;
   left: 85%;
   top: 10%;
-  width: 80px;
+  width: 95px;
   height: 20px;
   z-index: 100;
 }
 
 .div1 button {
-  width: auto;
+  width: 100%;
   height: auto;
   border: 1px solid black;
   transition-duration: 0.2s;
@@ -39,6 +39,7 @@
 
 .div1 input {
   width: 100%;
+  height: auto;
   opacity: 0.2;
   transition-duration: 0.2s;
 }
