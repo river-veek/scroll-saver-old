@@ -219,6 +219,10 @@ window.onload = function() {
       // TODO: consider not allowing multiple locations with same name
       // add percentage to name, maybe make all elements larger?
       loc = addScrollLocation();
+      let cur = loc.y;
+      let total = document.documentElement.scrollHeight;
+      let percent = Math.round((cur / total) * 100);
+      let final = percent + "%";
       console.log(loc);
       button.textContent = "Save Location";
       button.style.background = "#4f9144"; // green
@@ -227,7 +231,10 @@ window.onload = function() {
       if (checkIfExists(loc)) {
         let name = input.value;
         if (name == "") {
-          name = "Location " + index;
+          name = "Location " + index + " (" + final + ")";
+        }
+        else {
+          name += " (" + final + ")"
         }
         addOption(name, loc);
         index++;
