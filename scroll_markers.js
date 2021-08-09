@@ -177,6 +177,10 @@ function addInput() {
   div.appendChild(name);
 }
 
+function addDeleteButtons() {
+  // FIXME: add vertical row of buttons corresponding to saved locs
+}
+
 // *****************************************************************************
 
 // *************************** DRIVER CODE *************************************
@@ -217,7 +221,6 @@ window.onload = function() {
     }
     else {
       // TODO: consider not allowing multiple locations with same name
-      // add percentage to name, maybe make all elements larger?
       loc = addScrollLocation();
       let cur = loc.y;
       let total = document.documentElement.scrollHeight;

@@ -23,6 +23,7 @@
 
 .div1 select:hover {
   opacity: 1;
+  cursor: pointer;
 }
 
 .div1 button:hover {
@@ -35,6 +36,7 @@
   background: #4f9144;
   color: white;
   opacity: 1;
+  cursor: pointer;
 }
 
 .div1 input {
