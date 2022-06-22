@@ -1,3 +1,7 @@
+# UPDATE: 
+I will be refactoring this codebase to utilize React JS instead of vanilla JS.
+Since that will require me to update most of the current code, I will just create a new repository for this project.
+
 # Scroll Saver (V0.7.0)
 A Google Chrome extension that allows a user to save the locations of the scroll bar on a webpage or file.
 
